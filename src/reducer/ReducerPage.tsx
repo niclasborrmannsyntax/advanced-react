@@ -38,12 +38,21 @@ function UseStateCounter() {
 
 import { useReducer } from "react";
 
-enum CounterEvents {
-  Increment,
-  Decrement,
-  Reset,
-  Custom,
-}
+const CounterEvents = {
+  Increment: "increment",
+  Decrement: "decrement",
+  Reset: "reset",
+  Custom: "custom",
+} as const;
+
+type CounterEvents = (typeof CounterEvents)[keyof typeof CounterEvents];
+
+// enum CounterEvents {
+//   Increment,
+//   Decrement,
+//   Reset,
+//   Custom,
+// }
 
 type counterEvents = "increment" | "decrement" | "reset" | "custom";
 
@@ -138,19 +147,19 @@ const initialState = {
   },
 };
 
-function immerReducer(state: any, action: { type: string; payload: any }): any {
+function immerReducer(draft: any, action: { type: string; payload: any }) {
   switch (action.type) {
     case "updateName":
-      state.user.name = action.payload;
+      draft.user.name = action.payload;
       break;
     case "updateAge":
-      state.user.age = action.payload;
+      draft.user.age = action.payload;
       break;
     case "updateCity":
-      state.user.address.city = action.payload;
+      draft.user.address.city = action.payload;
       break;
     case "updateCountry":
-      state.user.address.country = action.payload;
+      draft.user.address.country = action.payload;
       break;
     default:
       throw new Error("Unknown action: " + action.type);
@@ -191,9 +200,9 @@ export default function ReducerPage() {
   return (
     <div className="h-screen- w-screen p-8 text-center">
       <h1 className="text-3xl font-bold mb-4">Reducer Example</h1>
-      <UseStateCounter />
-      <UseReducerCounter />
-      {/* <ImmerReducerProfile /> */}
+      {/* <UseStateCounter />
+      <UseReducerCounter /> */}
+      <ImmerReducerProfile />
     </div>
   );
 }
