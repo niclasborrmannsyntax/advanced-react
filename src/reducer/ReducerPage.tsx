@@ -17,7 +17,7 @@ function UseStateCounter() {
 
   return (
     <div className={carddStyle}>
-      <p className="text-3xl font-bold">Count: {count}</p>
+      <p className="text-3xl font-bold">UseState Count: {count}</p>
       <div className="space-x-2 mt-4">
         <button className={buttonStyle} onClick={() => setCount(count + 1)}>
           Increment
@@ -25,7 +25,7 @@ function UseStateCounter() {
         <button className={buttonStyle} onClick={() => setCount(count - 1)}>
           Decrement
         </button>
-        <button className={buttonStyle} onClick={() => setCount(0)}>
+        <button className={buttonStyle} onClick={() => setCount(10)}>
           Reset
         </button>
       </div>
@@ -38,12 +38,23 @@ function UseStateCounter() {
 
 import { useReducer } from "react";
 
+enum CounterEvents {
+  Increment,
+  Decrement,
+  Reset,
+  Custom,
+}
+
+type counterEvents = "increment" | "decrement" | "reset" | "custom";
+
 function counterReducer(state: any, action: any): any {
   switch (action.type) {
     case "increment":
       return { count: state.count + 1 };
     case "decrement":
       return { count: state.count - 1 };
+    case "custom":
+      return { count: action.count };
     case "reset":
       return { count: 0 };
     default:
@@ -51,30 +62,59 @@ function counterReducer(state: any, action: any): any {
   }
 }
 
+function counterReducerEnum(
+  state: any,
+  action: { type: CounterEvents; payload?: number },
+): any {
+  switch (action.type) {
+    case CounterEvents.Increment:
+      return { count: state.count + 1 };
+    case CounterEvents.Decrement:
+      return { count: state.count - 1 };
+    case CounterEvents.Custom:
+      return { count: action.payload };
+    case CounterEvents.Reset:
+      return { count: 0 };
+    default:
+      throw new Error("Unknown action: " + action.type);
+  }
+}
+
 function UseReducerCounter() {
-  const [state, dispatch] = useReducer(counterReducer, { count: 0 });
+  //   const [state, dispatch] = useReducer(counterReducer, { count: 0 });
+  const [state, dispatch] = useReducer(counterReducerEnum, { count: 0 });
 
   return (
     <div className={carddStyle}>
-      <p className="text-3xl font-bold">Count: {state.count}</p>
+      <p className="text-3xl font-bold">UseReducer Count: {state.count}</p>
       <div className="space-x-2 mt-4">
         <button
           className={buttonStyle}
-          onClick={() => dispatch({ type: "increment" })}
+          // onClick={() => dispatch({ type: "increment" })}
+          onClick={() => dispatch({ type: CounterEvents.Increment })}
         >
           Increment
         </button>
         <button
           className={buttonStyle}
-          onClick={() => dispatch({ type: "decrement" })}
+          // onClick={() => dispatch({ type: "decrement" })}
+          onClick={() => dispatch({ type: CounterEvents.Decrement })}
         >
           Decrement
         </button>
         <button
           className={buttonStyle}
-          onClick={() => dispatch({ type: "reset" })}
+          // onClick={() => dispatch({ type: "reset" })}
+          onClick={() => dispatch({ type: CounterEvents.Reset })}
         >
           Reset
+        </button>
+        <button
+          className={buttonStyle}
+          // onClick={() => dispatch({ type: "custom", count: 32 })}
+          onClick={() => dispatch({ type: CounterEvents.Custom, payload: 32 })}
+        >
+          Set to 32
         </button>
       </div>
     </div>
@@ -153,7 +193,7 @@ export default function ReducerPage() {
       <h1 className="text-3xl font-bold mb-4">Reducer Example</h1>
       <UseStateCounter />
       <UseReducerCounter />
-      <ImmerReducerProfile />
+      {/* <ImmerReducerProfile /> */}
     </div>
   );
 }
