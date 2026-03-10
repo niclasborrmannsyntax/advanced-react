@@ -1,20 +1,34 @@
 import { Link, Route, Routes } from "react-router-dom";
-import Reducer from "./reducer/ReducerPage";
+import ReducerPage from "./reducer/ReducerPage";
+import CallbackPage from "./callback/CallbackPage";
+import CallbackPageAdvanced from "./callback/CallbackPageAdvanced";
 
 function Home() {
   return (
-    <div className="min-h-screen bg-gray-100 text-gray-900">
+    <div className="min-h-screen">
       <div className="max-w-3xl mx-auto p-6">
         <h1 className="text-4xl font-extrabold text-center mb-8">
           Advanced React
         </h1>
 
-        <div className="mt-6 text-center">
+        <div className="flex flex-col gap-4 mt-6 text-center">
           <Link
             to="/reducer"
             className="text-blue-600 hover:underline font-medium"
           >
             Go to Reducer Example
+          </Link>
+          <Link
+            to="/callback"
+            className="text-blue-600 hover:underline font-medium"
+          >
+            Go to Callback Example
+          </Link>
+          <Link
+            to="/callback-advanced"
+            className="text-blue-600 hover:underline font-medium"
+          >
+            Go to Advanced Callback Demo
           </Link>
         </div>
       </div>
@@ -26,7 +40,9 @@ export default function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/reducer" element={<Reducer />} />
+      <Route path="/reducer" element={<ReducerPage />} />
+      <Route path="/callback" element={<CallbackPage />} />
+      <Route path="/callback-advanced" element={<CallbackPageAdvanced />} />
     </Routes>
   );
 }
