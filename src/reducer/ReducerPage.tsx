@@ -200,8 +200,8 @@ export default function ReducerPage() {
   return (
     <div className="h-screen- w-screen p-8 text-center">
       <h1 className="text-3xl font-bold mb-4">Reducer Example</h1>
-      {/* <UseStateCounter />
-      <UseReducerCounter /> */}
+      <UseStateCounter />
+      <UseReducerCounter />
       <ImmerReducerProfile />
     </div>
   );

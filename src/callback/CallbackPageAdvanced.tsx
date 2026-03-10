@@ -1,21 +1,10 @@
 import React from "react";
-import { useState, useRef, useMemo } from "react";
-
-// a small component to display how many times it rendered
-const RenderCounter = ({ label }: { label: string }) => {
-  const renders = useRef(0);
-  renders.current += 1;
-  return (
-    <p className="text-sm text-gray-700">
-      {label} renders: {renders.current}
-    </p>
-  );
-};
-
-// const MemoizedCallbackCard = useMemo(() => CallbackCard, []);
+import { useState, useMemo } from "react";
+import SortedList from "./SortedList";
 
 export default function CallbackPageAdvanced() {
   const [parentCount, setParentCount] = useState(0);
+  console.log("Parent rendered with count:", parentCount);
 
   // simple list shuffle example
   const baseList = ["apple", "banana", "cherry", "date"];
@@ -29,10 +18,7 @@ export default function CallbackPageAdvanced() {
     return copy;
   }, [shuffleKey]);
 
-  // render counter for list component
-  const listRenders = useRef(0);
   const ListDisplay = React.memo(({ items }: { items: string[] }) => {
-    listRenders.current += 1;
     return (
       <ul className="text-center">
         {items.map((it) => (
@@ -62,11 +48,9 @@ export default function CallbackPageAdvanced() {
         >
           Rerender parent ({parentCount})
         </button>
-        <p className="mt-2 text-sm">
-          List component renders: {listRenders.current}
-        </p>
         <ListDisplay items={shuffled} />
-      </div>{" "}
+      </div>
+      <SortedList />
     </div>
   );
 }

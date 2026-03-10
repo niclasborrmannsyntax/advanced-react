@@ -1,12 +1,13 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 // card component receives callback and reports success or failure
 interface CallbackCardProps {
   onSuccess: () => void;
+  onError: () => void;
 }
 
-function CallbackCard({ onSuccess }: CallbackCardProps) {
+function CallbackCard({ onSuccess, onError }: CallbackCardProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -20,7 +21,8 @@ function CallbackCard({ onSuccess }: CallbackCardProps) {
       if (success) {
         onSuccess();
       } else {
-        setError("Something went wrong");
+        onError();
+        // setError("Something went wrong");
       }
     }, 1000);
   };
@@ -53,12 +55,13 @@ function CallbackCard({ onSuccess }: CallbackCardProps) {
 
 export default function CallbackPage() {
   const navigate = useNavigate();
-  const handleSuccess = useCallback(() => navigate("/"), []);
+  const onSuccess = () => navigate("/");
+  const onError = () => navigate("/callback-advanced");
 
   return (
     <div className="min-h-screen w-screen p-8 flex flex-col items-center justify-center">
       <h1 className="text-3xl font-bold mb-6">Callback Example</h1>
-      <CallbackCard onSuccess={handleSuccess} />
+      <CallbackCard onSuccess={onSuccess} onError={onError} />
     </div>
   );
 }
