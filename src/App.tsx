@@ -2,6 +2,7 @@ import { Link, Route, Routes } from "react-router-dom";
 import ReducerPage from "./reducer/ReducerPage";
 import CallbackPage from "./callback/CallbackPage";
 import CallbackPageAdvanced from "./callback/CallbackPageAdvanced";
+import HighOrderComponentPage from "./patterns/HighOrderComponentPage";
 
 function Home() {
   return (
@@ -30,6 +31,12 @@ function Home() {
           >
             Go to Advanced Callback Demo
           </Link>
+          <Link
+            to="/high-order-components"
+            className="text-blue-600 hover:underline font-medium"
+          >
+            Go to High-Order Components Demo
+          </Link>
         </div>
       </div>
     </div>
@@ -43,6 +50,10 @@ export default function App() {
       <Route path="/reducer" element={<ReducerPage />} />
       <Route path="/callback" element={<CallbackPage />} />
       <Route path="/callback-advanced" element={<CallbackPageAdvanced />} />
+      <Route
+        path="/high-order-components"
+        element={<HighOrderComponentPage />}
+      />
     </Routes>
   );
 }

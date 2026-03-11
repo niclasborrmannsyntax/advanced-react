@@ -1,5 +1,9 @@
 import { useMemo, useState } from "react";
 
+function getRandomInt(max: number) {
+  return Math.floor(Math.random() * max);
+}
+
 export default function SortedList() {
   const [items, setItems] = useState(["apple", "banana", "cherry", "date"]);
   const [numbers, setNumbers] = useState([9, 3, 5]);
@@ -54,9 +58,9 @@ export default function SortedList() {
       </button> */}
       <button
         className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-full"
-        onClick={() => setNumbers((prev) => [...prev, 7])}
+        onClick={() => setNumbers((prev) => [...prev, getRandomInt(10)])}
       >
-        Add 7
+        Add Random
       </button>
       <button
         className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-full"
