@@ -3,6 +3,7 @@ import ReducerPage from "./reducer/ReducerPage";
 import CallbackPage from "./callback/CallbackPage";
 import CallbackPageAdvanced from "./callback/CallbackPageAdvanced";
 import HighOrderComponentPage from "./patterns/HighOrderComponentPage";
+import TestingPage from "./testing/TestingPage";
 
 function Home() {
   return (
@@ -37,6 +38,12 @@ function Home() {
           >
             Go to High-Order Components Demo
           </Link>
+          <Link
+            to="/testing"
+            className="text-blue-600 hover:underline font-medium"
+          >
+            Go to Testing Page
+          </Link>
         </div>
       </div>
     </div>
@@ -54,6 +61,7 @@ export default function App() {
         path="/high-order-components"
         element={<HighOrderComponentPage />}
       />
+      <Route path="/testing" element={<TestingPage />} />
     </Routes>
   );
 }

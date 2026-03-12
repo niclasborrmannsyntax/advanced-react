@@ -5,9 +5,10 @@ import withEnhancements from "./hocs/withEnhancements";
 import MouseTracker from "./components/MouseTracker";
 import { useMouse } from "./hooks/useMouse";
 import withLogging from "./hocs/withLogging";
+import MousePositionCard from "./components/MousePositionCard";
 
 const UserList = withLogging(withLoading(BasicUserList));
-// const UserListEnhanced = withEnhancements(BasicUserList);
+const UserListEnhanced = withEnhancements(BasicUserList);
 
 export default function App() {
   const users: { id: number; name: string }[] = [
@@ -16,7 +17,7 @@ export default function App() {
   ];
 
   const [isLoading, setIsLoading] = useState(true);
-  // const { x, y } = useMouse();
+  const { x, y } = useMouse();
 
   useEffect(() => {
     setTimeout(() => {
@@ -27,15 +28,9 @@ export default function App() {
   return (
     <div className="min-h-screen w-screen p-8 flex flex-col gap-4 items-center justify-start">
       <UserList isLoading={isLoading} users={users} />
-      {/* <UserListEnhanced isLoading={isLoading} users={users} />
-      <MouseTracker
-        render={({ x, y }: { x: number; y: number }) => (
-          <div>
-            Mausposition: {x} / {y}
-          </div>
-        )}
-      />
-      Mausposition aus Hook: {x} / {y} */}
+      <UserListEnhanced isLoading={isLoading} users={users} />
+      <MouseTracker render={MousePositionCard} />
+      <MousePositionCard x={x} y={y} />
     </div>
   );
 }

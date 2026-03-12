@@ -5,7 +5,6 @@ export function useMouse() {
 
   useEffect(() => {
     const handle = (e: MouseEvent) => setPos({ x: e.clientX, y: e.clientY });
-
     window.addEventListener("mousemove", handle);
     return () => window.removeEventListener("mousemove", handle);
   }, []);
