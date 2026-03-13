@@ -20,7 +20,7 @@ export default function Counter({
         </button>
         <button
           className="px-3 py-1 bg-yellow-500 text-white rounded"
-          onClick={() => setCount((c) => c - 1)}
+          onClick={() => setCount((c) => (c > 0 ? c - 1 : 0))}
         >
           Decrement
         </button>
@@ -29,6 +29,12 @@ export default function Counter({
           onClick={() => setCount(0)}
         >
           Reset
+        </button>
+        <button
+          className="px-3 py-1 bg-red-600 text-white rounded"
+          onClick={() => setCount(0)}
+        >
+          Undo
         </button>
       </div>
     </div>

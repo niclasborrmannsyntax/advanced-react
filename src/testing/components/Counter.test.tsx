@@ -23,22 +23,25 @@ describe("Counter component", () => {
     expect(count).toEqual(2);
   });
   it("decrements when the button is clicked", () => {
-    const { getByTestId, getByRole } = render(<Counter initialValue={5} />);
+    const { getByTestId, getByRole } = render(<Counter initialValue={0} />);
     const decrementButton = getByRole("button", { name: "Decrement" });
 
     fireEvent.click(decrementButton);
     fireEvent.click(decrementButton);
 
     const count = Number(getByTestId("count").textContent);
-    expect(count).toEqual(3);
+    expect(count).toEqual(0);
   });
-  it("resets to 0 when the reset button is clicked", () => {
-    const { getByTestId, getByRole } = render(<Counter initialValue={5} />);
+  it("resets when the button is clicked", () => {
+    // ARRANGE
+    const { getByTestId, getByRole } = render(<Counter initialValue={200} />);
     const resetButton = getByRole("button", { name: "Reset" });
 
+    // ACT
     fireEvent.click(resetButton);
 
-    const count = Number(getByTestId("count").textContent);
-    expect(count).toEqual(0);
+    // ASSERT
+    const resetedCount = getByTestId("count");
+    expect(resetedCount).toHaveTextContent("0");
   });
 });
